@@ -1,4 +1,4 @@
-local Library = {
+local library = {
     ['Square'] = {
         ['Properties'] = {
             'Visible',
@@ -78,45 +78,36 @@ local Library = {
             ['Position'] = Vector2.new(0, 0),
             ['Font'] = 2
         }
-    },
-    ['Offsets'] = {
-        ['X'] = 100,
-        ['Y'] = 100
     }
 }
 
-function Library:Set_Offset(X, Y)
-    Library['Offsets']['X'] = X
-    Library['Offsets']['Y'] = Y
-end
-
-function Library:Create(...)
-    local Objects = {}
-    local Object_Properties_Table = {...}
+function library:create(...)
+    local objects = {}
+    local object_properties_table = {...}
     
-    for _, Object_Properties in ipairs(Object_Properties_Table) do
-        local Drawing_Object = Drawing.new(Object_Properties['Object'])
+    for _, object_properties in ipairs(object_properties_table) do
+        local drawing_object = Drawing.new(object_properties['Object'])
         
-        for _, Property in ipairs(Library[Object_Properties['Object']]['Properties']) do
-            if Object_Properties[Property] then
-                if Property == 'Position' then
-                    Drawing_Object[Property] = Object_Properties[Property] + Vector2.new(Library['Offsets']['X'], Library['Offsets']['Y'])
+        for _, property in ipairs(library[object_properties['Object']]['Properties']) do
+            if object_properties[property] then
+                if property == 'Position' then
+                    drawing_object[property] = object_properties[property] + object_properties['Offset']
                 else
-                    Drawing_Object[Property] = Object_Properties[Property]
+                    drawing_object[property] = object_properties[property]
                 end
             else
-                if Property == 'Position' then
-                    Drawing_Object[Property] = Library[Object_Properties['Object']]['Base'][Property] + Vector2.new(Library['Offsets']['X'], Library['Offsets']['Y'])
+                if property == 'Position' then
+                    drawing_object[property] = library[object_properties['Object']]['Base'][property] + object_properties['Offset']
                 else
-                    Drawing_Object[Property] = Library[Object_Properties['Object']]['Base'][Property]
+                    drawing_object[property] = library[object_properties['Object']]['Base'][property]
                 end
             end
         end
         
-        table.insert(Objects, Drawing_Object)
+        table.insert(objects, drawing_object)
     end
 
-    return Objects
+    return objects
 end
 
-return Library
+return library
