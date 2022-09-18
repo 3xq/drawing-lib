@@ -40,3 +40,5 @@ function callback:new(object, callback)
 end
 
 contextactionservice:BindAction('handle', handle, false, Enum.UserInputType.MouseButton1)
+
+return callback
