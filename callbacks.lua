@@ -31,7 +31,7 @@ function callback:new(object, callback)
     table.insert(data[1], object.Position.X)
     table.insert(data[1], object.Position.X + object.Size.X)
     table.insert(data[1], object.Position.Y)
-    table.insert(data[1], object.Position.X + object.Size.Y)
+    table.insert(data[1], object.Position.Y + object.Size.Y)
     
     table.insert(data, object)
     table.insert(data, callback)
